@@ -40,6 +40,7 @@ export const WovenLightHero = () => {
   return (
     <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black dark:bg-white">
       <WovenCanvas />
+      <Logo />
       <HeroNav />
       <div className="relative z-10 text-center px-4">
         <h1 className="text-6xl md:text-8xl text-white dark:text-slate-900" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
@@ -73,18 +74,50 @@ export const WovenLightHero = () => {
   );
 };
 
-// --- Navigation Component ---
-const HeroNav = () => {
+// --- Logo Component ---
+const Logo = () => {
     return (
-        <motion.nav
+        <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
-            className="absolute top-0 left-0 right-0 z-20 p-6"
+            className="absolute top-8 left-8 z-50 flex items-center gap-2"
         >
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
-                    <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Woven</span>
+            <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
+            <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
+        </motion.div>
+    );
+};
+
+// --- Navigation Component ---
+const HeroNav = () => {
+    const navItems = ["Home", "Experiences", "Projects", "Publications", "Contact"];
+
+    return (
+        <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 1 } }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-auto rounded-full border border-white/10 bg-black/20 backdrop-blur-md px-8 py-4 shadow-2xl dark:border-slate-800/20 dark:bg-white/20"
+        >
+            <div className="flex justify-center items-center w-full">
+                <ul className="hidden md:flex items-center gap-8">
+                    {navItems.map((item) => (
+                        <li key={item}>
+                            <a
+                                href={`#${item.toLowerCase()}`}
+                                className="text-sm font-medium text-slate-300 transition-colors hover:text-white dark:text-slate-600 dark:hover:text-slate-900"
+                                style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                                {item}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* Mobile Menu Button - Optional, keeping it simple for now or adding a placeholder */}
+                <div className="md:hidden">
+                    <button className="text-white dark:text-slate-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    </button>
                 </div>
             </div>
         </motion.nav>
