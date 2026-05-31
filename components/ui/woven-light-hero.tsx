@@ -75,16 +75,39 @@ export const WovenLightHero = () => {
 
 // --- Navigation Component ---
 const HeroNav = () => {
+    const navItems = ["Home", "Experiences", "Projects", "Publications", "Contact"];
+
     return (
         <motion.nav
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
-            className="absolute top-0 left-0 right-0 z-20 p-6"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 1 } }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full border border-white/10 bg-black/20 backdrop-blur-md px-6 py-4 shadow-2xl dark:border-slate-800/20 dark:bg-white/20"
         >
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <div className="flex justify-between items-center w-full">
                 <div className="flex items-center gap-2">
                     <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
-                    <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Woven</span>
+                    <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
+                </div>
+
+                <ul className="hidden md:flex items-center gap-8">
+                    {navItems.map((item) => (
+                        <li key={item}>
+                            <a
+                                href={`#${item.toLowerCase()}`}
+                                className="text-sm font-medium text-slate-300 transition-colors hover:text-white dark:text-slate-600 dark:hover:text-slate-900"
+                                style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                                {item}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* Mobile Menu Button - Optional, keeping it simple for now or adding a placeholder */}
+                <div className="md:hidden">
+                    <button className="text-white dark:text-slate-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    </button>
                 </div>
             </div>
         </motion.nav>
