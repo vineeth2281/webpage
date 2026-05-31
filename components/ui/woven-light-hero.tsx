@@ -40,6 +40,7 @@ export const WovenLightHero = () => {
   return (
     <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black dark:bg-white">
       <WovenCanvas />
+      <Logo />
       <HeroNav />
       <div className="relative z-10 text-center px-4">
         <h1 className="text-6xl md:text-8xl text-white dark:text-slate-900" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
@@ -73,6 +74,20 @@ export const WovenLightHero = () => {
   );
 };
 
+// --- Logo Component ---
+const Logo = () => {
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
+            className="absolute top-8 left-8 z-50 flex items-center gap-2"
+        >
+            <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
+            <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
+        </motion.div>
+    );
+};
+
 // --- Navigation Component ---
 const HeroNav = () => {
     const navItems = ["Home", "Experiences", "Projects", "Publications", "Contact"];
@@ -81,14 +96,9 @@ const HeroNav = () => {
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 1 } }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full border border-white/10 bg-black/20 backdrop-blur-md px-6 py-4 shadow-2xl dark:border-slate-800/20 dark:bg-white/20"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-auto rounded-full border border-white/10 bg-black/20 backdrop-blur-md px-8 py-4 shadow-2xl dark:border-slate-800/20 dark:bg-white/20"
         >
-            <div className="flex justify-between items-center w-full">
-                <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
-                    <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
-                </div>
-
+            <div className="flex justify-center items-center w-full">
                 <ul className="hidden md:flex items-center gap-8">
                     {navItems.map((item) => (
                         <li key={item}>
