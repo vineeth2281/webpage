@@ -3,6 +3,8 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import * as THREE from 'three';
+import { useTheme } from 'next-themes';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 // --- Main Hero Component ---
 export const WovenLightHero = () => {
@@ -38,12 +40,13 @@ export const WovenLightHero = () => {
   const headline = "Woven by Light";
 
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black dark:bg-white">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-500">
       <WovenCanvas />
       <Logo />
       <HeroNav />
+      <ThemeToggle />
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-6xl md:text-8xl text-white dark:text-slate-900" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
+        <h1 className="text-6xl md:text-8xl text-slate-900 dark:text-white" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
             {headline.split(" ").map((word, i) => (
                 <span key={i} className="inline-block">
                     {word.split("").map((char, j) => (
@@ -59,13 +62,13 @@ export const WovenLightHero = () => {
           custom={headline.length}
           initial={{ opacity: 0, y: 30 }}
           animate={textControls}
-          className="mx-auto mt-6 max-w-xl text-lg text-slate-300 dark:text-slate-600"
+          className="mx-auto mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-400"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           An interactive tapestry of light and motion, crafted with code and creativity.
         </motion.p>
         <motion.div initial={{ opacity: 0 }} animate={buttonControls} className="mt-10">
-          <button className="rounded-full border-2 border-white/20 bg-white/10 px-8 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20 dark:border-slate-800/20 dark:bg-slate-800/5 dark:text-slate-800 dark:hover:bg-slate-800/10" style={{ fontFamily: "'Inter', sans-serif" }}>
+          <button className="rounded-full border-2 border-slate-300 bg-slate-100 px-8 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" style={{ fontFamily: "'Inter', sans-serif" }}>
             Explore the Weave
           </button>
         </motion.div>
@@ -82,8 +85,8 @@ const Logo = () => {
             animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
             className="absolute top-8 left-8 z-50 flex items-center gap-2"
         >
-            <span className="text-2xl font-bold text-white dark:text-slate-800">⎎</span>
-            <span className="text-xl font-bold text-white dark:text-slate-800" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
+            <span className="text-2xl font-bold text-slate-800 dark:text-white">⎎</span>
+            <span className="text-xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
         </motion.div>
     );
 };
@@ -96,7 +99,7 @@ const HeroNav = () => {
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 1 } }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-auto rounded-full border border-white/10 bg-black/20 backdrop-blur-md px-8 py-4 shadow-2xl dark:border-slate-800/20 dark:bg-white/20"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-auto rounded-full border border-slate-200/50 bg-white/50 backdrop-blur-md px-8 py-4 shadow-xl dark:border-slate-800/50 dark:bg-black/50"
         >
             <div className="flex justify-center items-center w-full">
                 <ul className="hidden md:flex items-center gap-8">
@@ -104,7 +107,7 @@ const HeroNav = () => {
                         <li key={item}>
                             <a
                                 href={`#${item.toLowerCase()}`}
-                                className="text-sm font-medium text-slate-300 transition-colors hover:text-white dark:text-slate-600 dark:hover:text-slate-900"
+                                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                                 style={{ fontFamily: "'Inter', sans-serif" }}
                             >
                                 {item}
@@ -115,7 +118,7 @@ const HeroNav = () => {
 
                 {/* Mobile Menu Button - Optional, keeping it simple for now or adding a placeholder */}
                 <div className="md:hidden">
-                    <button className="text-white dark:text-slate-800">
+                    <button className="text-slate-800 dark:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                     </button>
                 </div>
@@ -127,6 +130,7 @@ const HeroNav = () => {
 // --- Three.js Canvas Component ---
 const WovenCanvas = () => {
   const mountRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -142,7 +146,7 @@ const WovenCanvas = () => {
     const mouse = new THREE.Vector2(0, 0);
     const clock = new THREE.Clock();
 
-    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDarkMode = resolvedTheme === 'dark';
 
     // --- Woven Silk ---
     const particleCount = 50000;
@@ -184,9 +188,9 @@ const WovenCanvas = () => {
     const material = new THREE.PointsMaterial({
         size: 0.02,
         vertexColors: true,
-        blending: isDarkMode ? THREE.NormalBlending : THREE.AdditiveBlending,
+        blending: isDarkMode ? THREE.AdditiveBlending : THREE.NormalBlending,
         transparent: true,
-        opacity: isDarkMode ? 1.0 : 0.8,
+        opacity: isDarkMode ? 0.8 : 1.0,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -198,8 +202,10 @@ const WovenCanvas = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    let animationFrameId: number;
+
     const animate = () => {
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
         const elapsedTime = clock.getElapsedTime();
 
         const mouseWorld = new THREE.Vector3(mouse.x * 3, mouse.y * 3, 0);
@@ -250,11 +256,12 @@ const WovenCanvas = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
+        cancelAnimationFrame(animationFrameId);
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('mousemove', handleMouseMove);
         mountRef.current?.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [resolvedTheme]);
 
   return <div ref={mountRef} className="absolute inset-0 z-0" />;
 };
