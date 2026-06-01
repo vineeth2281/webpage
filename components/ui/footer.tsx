@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-black py-8 transition-colors duration-500">
+    <footer className="w-full border-t border-slate-200 dark:border-slate-800 bg-transparent py-8 transition-colors duration-500">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="text-slate-600 dark:text-slate-400 text-sm">
           &copy; {new Date().getFullYear()} Vineeth. All rights reserved.
