@@ -40,7 +40,7 @@ export const WovenLightHero = () => {
   const headline = "Woven by Light";
 
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-500">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent transition-colors duration-500">
       <WovenCanvas />
       <Logo />
       <HeroNav />

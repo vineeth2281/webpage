@@ -48,7 +48,7 @@ const experiencesData = [
 
 export const Experiences = () => {
   return (
-    <section id="experiences" className="py-24 bg-slate-50 dark:bg-black transition-colors duration-500">
+    <section id="experiences" className="py-24 bg-transparent transition-colors duration-500">
       <div className="container mx-auto px-4 max-w-5xl">
         <motion.div
             initial={{ opacity: 0, y: 30 }}
