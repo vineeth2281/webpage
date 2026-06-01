@@ -1,4 +1,5 @@
 import { WovenLightHero } from "@/components/ui/woven-light-hero";
+import { Experiences } from "@/components/ui/experiences";
 import { Footer } from "@/components/ui/footer";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
         <WovenLightHero />
+        <Experiences />
       </main>
       <Footer />
     </div>
