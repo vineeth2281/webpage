@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { ContactModal } from '@/components/ui/contact-modal';
 
 // --- Main Hero Component ---
 export const WovenLightHero = () => {
@@ -37,7 +38,7 @@ export const WovenLightHero = () => {
     }
   }, [textControls, buttonControls]);
 
-  const headline = "Woven by Light";
+  const headline = "Vineeth Ramesh";
 
   return (
     <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent transition-colors duration-500">
@@ -65,12 +66,18 @@ export const WovenLightHero = () => {
           className="mx-auto mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-400"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          An interactive tapestry of light and motion, crafted with code and creativity.
+          AI Engineer / Data Scientist specializing in scalable Machine Learning systems, NLP, and Computer Vision.
         </motion.p>
         <motion.div initial={{ opacity: 0 }} animate={buttonControls} className="mt-10">
-          <button className="rounded-full border-2 border-slate-300 bg-slate-100 px-8 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" style={{ fontFamily: "'Inter', sans-serif" }}>
-            Explore the Weave
-          </button>
+          <a
+            href="https://www.linkedin.com/in/vineeth2281"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full border-2 border-slate-300 bg-slate-100 px-8 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Connect
+          </a>
         </motion.div>
       </div>
     </div>
@@ -93,9 +100,12 @@ const Logo = () => {
 
 // --- Navigation Component ---
 const HeroNav = () => {
-    const navItems = ["Home", "Experiences", "Projects", "Publications", "Contact"];
+    const navItems = ["Home", "Experiences", "Projects", "Publications"];
+    const [isContactOpen, setIsContactOpen] = useState(false);
 
     return (
+        <>
+        <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 1, duration: 1 } }}
@@ -114,6 +124,15 @@ const HeroNav = () => {
                             </a>
                         </li>
                     ))}
+                    <li>
+                        <button
+                            onClick={() => setIsContactOpen(true)}
+                            className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                            Contact
+                        </button>
+                    </li>
                 </ul>
 
                 {/* Mobile Menu Button - Optional, keeping it simple for now or adding a placeholder */}
@@ -124,6 +143,7 @@ const HeroNav = () => {
                 </div>
             </div>
         </motion.nav>
+        </>
     );
 };
 
