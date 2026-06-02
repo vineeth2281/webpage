@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { playfairDisplay, inter } from "@/lib/fonts";
 
 const experiencesData = [
   {
@@ -57,7 +58,7 @@ export const Experiences = () => {
             transition={{ duration: 0.8 }}
             className="mb-16 text-center"
         >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 ${playfairDisplay.className}`}>
                 Experience
             </h2>
             <div className="h-1 w-20 bg-slate-900 dark:bg-white mx-auto rounded-full opacity-20"></div>
@@ -82,14 +83,14 @@ export const Experiences = () => {
               <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white dark:bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-800/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group-hover:border-slate-300 dark:group-hover:border-slate-700">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
                     <div>
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white" style={{ fontFamily: "'Inter', sans-serif" }}>{exp.role}</h3>
+                        <h3 className={`text-xl font-bold text-slate-900 dark:text-white ${inter.className}`}>{exp.role}</h3>
                         <div className="text-lg font-medium text-slate-600 dark:text-slate-400 mt-1">{exp.company} <span className="opacity-50">|</span> {exp.location}</div>
                     </div>
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 shrink-0">
                         {exp.date}
                     </span>
                 </div>
-                <ul className="space-y-3 mt-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <ul className={`space-y-3 mt-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed ${inter.className}`}>
                   {exp.points.map((point, i) => (
                     <li key={i} className="flex gap-3">
                         <span className="text-slate-400 dark:text-slate-500 mt-1.5 shrink-0">✦</span>

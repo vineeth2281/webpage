@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { playfairDisplay, inter } from "@/lib/fonts";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -19,8 +20,14 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    if (!formspreeId) {
+      setStatus("error");
+      return;
+    }
+
     try {
-      const response = await fetch("https://formspree.io/f/xbjnrvnq", {
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
         body: data,
         headers: {
@@ -37,7 +44,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       } else {
         setStatus("error");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
     }
   };
@@ -68,14 +75,14 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 >
                   <X size={20} />
                 </button>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <h3 className={`text-2xl font-bold text-slate-900 dark:text-white mb-2 ${playfairDisplay.className}`}>
                   Get in Touch
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  Fill out the form below and I'll get back to you as soon as possible.
+                <p className={`text-slate-600 dark:text-slate-400 mb-6 text-sm ${inter.className}`}>
+                  Fill out the form below and I&apos;ll get back to you as soon as possible.
                 </p>
 
-                <form onSubmit={handleSubmit} className="space-y-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <form onSubmit={handleSubmit} className={`space-y-4 ${inter.className}`}>
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                       Name
@@ -85,6 +92,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                       id="name"
                       name="name"
                       required
+                      maxLength={100}
                       className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-slate-900 dark:text-white"
                       placeholder="John Doe"
                     />
@@ -98,6 +106,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                       id="email"
                       name="email"
                       required
+                      maxLength={254}
                       className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-slate-900 dark:text-white"
                       placeholder="john@example.com"
                     />
@@ -111,6 +120,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                       name="message"
                       required
                       rows={4}
+                      maxLength={2000}
                       className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-slate-900 dark:text-white resize-none"
                       placeholder="Your message here..."
                     ></textarea>

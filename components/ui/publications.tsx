@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BookOpen } from "lucide-react";
+import { playfairDisplay, inter } from "@/lib/fonts";
 
 const publicationsData = [
   {
@@ -23,7 +24,7 @@ export const Publications = () => {
             transition={{ duration: 0.8 }}
             className="mb-16 text-center"
         >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 ${playfairDisplay.className}`}>
                 Publications
             </h2>
             <div className="h-1 w-20 bg-slate-900 dark:bg-white mx-auto rounded-full opacity-20"></div>
@@ -44,7 +45,7 @@ export const Publications = () => {
                 </div>
 
                 <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-snug" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    <h3 className={`text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-snug ${inter.className}`}>
                         {pub.title}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400 font-medium mb-3">

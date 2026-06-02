@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ContactModal } from '@/components/ui/contact-modal';
+import { playfairDisplay, inter } from '@/lib/fonts';
 
 // --- Main Hero Component ---
 export const WovenLightHero = () => {
@@ -13,12 +14,6 @@ export const WovenLightHero = () => {
   const buttonControls = useAnimation();
 
   useEffect(() => {
-    // Add a more elegant font
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
     textControls.start(i => ({
       opacity: 1,
       y: 0,
@@ -32,10 +27,6 @@ export const WovenLightHero = () => {
         opacity: 1,
         transition: { delay: 2.5, duration: 1 }
     });
-
-    return () => {
-        document.head.removeChild(link);
-    }
   }, [textControls, buttonControls]);
 
   const headline = "Vineeth Ramesh";
@@ -47,7 +38,7 @@ export const WovenLightHero = () => {
       <HeroNav />
       <ThemeToggle />
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-6xl md:text-8xl text-slate-900 dark:text-white" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
+        <h1 className={`text-6xl md:text-8xl text-slate-900 dark:text-white ${playfairDisplay.className}`} style={{ textShadow: '0 0 50px rgba(255, 255, 255, 0.3)' }}>
             {headline.split(" ").map((word, i) => (
                 <span key={i} className="inline-block">
                     {word.split("").map((char, j) => (
@@ -63,8 +54,7 @@ export const WovenLightHero = () => {
           custom={headline.length}
           initial={{ opacity: 0, y: 30 }}
           animate={textControls}
-          className="mx-auto mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-400"
-          style={{ fontFamily: "'Inter', sans-serif" }}
+          className={`mx-auto mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-400 ${inter.className}`}
         >
           AI Engineer / Data Scientist specializing in scalable Machine Learning systems, NLP, and Computer Vision.
         </motion.p>
@@ -73,8 +63,7 @@ export const WovenLightHero = () => {
             href="https://www.linkedin.com/in/vineeth2281"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-full border-2 border-slate-300 bg-slate-100 px-8 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className={`inline-block rounded-full border-2 border-slate-300 bg-slate-100 px-8 py-3 font-semibold text-slate-900 backdrop-blur-sm transition-all hover:bg-slate-200 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 ${inter.className}`}
           >
             Connect
           </a>
@@ -93,7 +82,7 @@ const Logo = () => {
             className="absolute top-8 left-8 z-50 flex items-center gap-2"
         >
             <span className="text-2xl font-bold text-slate-800 dark:text-white">⎎</span>
-            <span className="text-xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: "'Inter', sans-serif" }}>Vineeth</span>
+            <span className={`text-xl font-bold text-slate-800 dark:text-white ${inter.className}`}>Vineeth</span>
         </motion.div>
     );
 };
@@ -117,8 +106,7 @@ const HeroNav = () => {
                         <li key={item}>
                             <a
                                 href={`#${item.toLowerCase()}`}
-                                className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-                                style={{ fontFamily: "'Inter', sans-serif" }}
+                                className={`text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white ${inter.className}`}
                             >
                                 {item}
                             </a>
@@ -127,8 +115,7 @@ const HeroNav = () => {
                     <li>
                         <button
                             onClick={() => setIsContactOpen(true)}
-                            className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-                            style={{ fontFamily: "'Inter', sans-serif" }}
+                            className={`text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white ${inter.className}`}
                         >
                             Contact
                         </button>
@@ -154,6 +141,7 @@ const WovenCanvas = () => {
 
   useEffect(() => {
     if (!mountRef.current) return;
+    const currentMount = mountRef.current;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -161,7 +149,7 @@ const WovenCanvas = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    mountRef.current.appendChild(renderer.domElement);
+    currentMount.appendChild(renderer.domElement);
 
     const mouse = new THREE.Vector2(0, 0);
     const clock = new THREE.Clock();
@@ -279,7 +267,7 @@ const WovenCanvas = () => {
         cancelAnimationFrame(animationFrameId);
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('mousemove', handleMouseMove);
-        mountRef.current?.removeChild(renderer.domElement);
+        currentMount.removeChild(renderer.domElement);
     };
   }, [resolvedTheme]);
 
